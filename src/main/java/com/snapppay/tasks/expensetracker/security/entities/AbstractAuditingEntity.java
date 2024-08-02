@@ -1,4 +1,4 @@
-package com.snapppay.tasks.expensetracker.domain.entities;
+package com.snapppay.tasks.expensetracker.security.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
