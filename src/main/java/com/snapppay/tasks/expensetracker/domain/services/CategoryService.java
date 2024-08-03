@@ -46,6 +46,9 @@ public class CategoryService {
         return categoryRepository.findAll().stream().map(CategoryDto::new).toList();
     }
 
+    /**
+     * Delete all categories.
+     */
     @Transactional
     public void deleteAllCategories() {
         categoryRepository.deleteAll();

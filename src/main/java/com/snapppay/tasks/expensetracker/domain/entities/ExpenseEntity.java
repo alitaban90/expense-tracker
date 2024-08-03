@@ -9,7 +9,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
@@ -45,9 +44,18 @@ public class ExpenseEntity extends AbstractAuditingEntity{
     @NotNull
     private CategoryEntity category;
 
+    /**
+     * Instantiates a new Expense entity.
+     */
     public ExpenseEntity() {
     }
 
+    /**
+     * Instantiates a new Expense entity.
+     *
+     * @param expenseDto the expense dto
+     * @param user       the user
+     */
     public ExpenseEntity(ExpenseDto expenseDto, UserEntity user) {
         this.amount=expenseDto.getAmount();
         this.description = expenseDto.getDescription();

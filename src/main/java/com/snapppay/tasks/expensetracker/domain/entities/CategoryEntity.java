@@ -26,9 +26,17 @@ public class CategoryEntity extends AbstractAuditingEntity{
 
     private String description;
 
+    /**
+     * Instantiates a new Category entity.
+     */
     public CategoryEntity() {
     }
 
+    /**
+     * Instantiates a new Category entity.
+     *
+     * @param categoryDto the category dto
+     */
     public CategoryEntity(CategoryDto categoryDto) {
         this.id = categoryDto.getId();
         this.name = categoryDto.getName();

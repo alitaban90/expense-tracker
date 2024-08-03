@@ -13,18 +13,33 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Alert evaluation service.
+ */
 @Service
 public class AlertEvaluationService {
     private final AlertRepository alertRepository;
     private final ExpenseRepository expenseRepository;
     private final NotificationService notificationService;
 
+    /**
+     * Instantiates a new Alert evaluation service.
+     *
+     * @param alertRepository     the alert repository
+     * @param expenseRepository   the expense repository
+     * @param notificationService the notification service
+     */
     public AlertEvaluationService(AlertRepository alertRepository, ExpenseRepository expenseRepository, NotificationService notificationService) {
         this.alertRepository = alertRepository;
         this.expenseRepository = expenseRepository;
         this.notificationService = notificationService;
     }
 
+    /**
+     * Evaluate alerts for expense.
+     *
+     * @param expense the expense
+     */
     public void evaluateAlertsForExpense(ExpenseEntity expense) {
         List<AlertEntity> alerts = alertRepository.findAllByUserId(expense.getUser().getId());
         for (AlertEntity alert : alerts) {
