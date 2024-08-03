@@ -27,12 +27,11 @@ public abstract class AbstractAuditingEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @CreatedBy
-    @Column(nullable = false, length = 50, updatable = false)
+    @Column(length = 50, updatable = false)
     @JsonIgnore
     private String createdBy;
 
     @CreatedDate
-    @Column(nullable = false)
     @JsonIgnore
     private LocalDateTime createdDate;
 

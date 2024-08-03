@@ -1,19 +1,14 @@
 package com.snapppay.tasks.expensetracker.security.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class UserRegisterDto {
+public class UserLoginDto {
 
     @NotBlank
     private String username;
     @NotBlank
     private String password;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String mobile;
 
 }
