@@ -1,5 +1,6 @@
 package com.snapppay.tasks.expensetracker.domain.entities;
 
+import com.snapppay.tasks.expensetracker.domain.dtos.AlertDto;
 import com.snapppay.tasks.expensetracker.domain.enums.AlertDuration;
 import com.snapppay.tasks.expensetracker.security.entities.AbstractAuditingEntity;
 import com.snapppay.tasks.expensetracker.security.entities.UserEntity;
@@ -40,4 +41,25 @@ public class AlertEntity extends AbstractAuditingEntity{
     private CategoryEntity category;
 
     private AlertDuration duration;
+
+    /**
+     * Instantiates a new Alert entity.
+     */
+    public AlertEntity() {
+    }
+
+    /**
+     * Instantiates a new Alert entity.
+     *
+     * @param alertDto    the alert dto
+     * @param currentUser the current user
+     */
+    public AlertEntity(AlertDto alertDto, UserEntity currentUser) {
+        this.id = alertDto.getId();
+        this.amount = alertDto.getAmount();
+        this.description = alertDto.getDescription();
+        this.user = currentUser;
+        this.category = new CategoryEntity(alertDto.getCategory());
+        this.duration = alertDto.getDuration();
+    }
 }
