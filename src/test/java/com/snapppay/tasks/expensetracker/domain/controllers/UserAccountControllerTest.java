@@ -1,12 +1,11 @@
-package com.snapppay.tasks.expensetracker.controllers;
+package com.snapppay.tasks.expensetracker.domain.controllers;
 
+import com.snapppay.tasks.expensetracker.BaseIntegrationTest;
 import com.snapppay.tasks.expensetracker.security.entities.UserEntity;
 import com.snapppay.tasks.expensetracker.security.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,9 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * The type User account controller test.
  */
-@SpringBootTest
-@AutoConfigureMockMvc
-public class UserAccountControllerTest {
+public class UserAccountControllerTest extends BaseIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -36,9 +33,6 @@ public class UserAccountControllerTest {
     @BeforeEach
     @Transactional
     public void setup() {
-        // Clear all existing users and add a test user
-        userRepository.deleteAll();
-
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("testuser");
         userEntity.setPassword("{noop}password"); // Password should be encoded in real scenarios

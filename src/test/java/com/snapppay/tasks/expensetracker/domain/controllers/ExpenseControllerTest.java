@@ -1,5 +1,6 @@
-package com.snapppay.tasks.expensetracker.controllers;
+package com.snapppay.tasks.expensetracker.domain.controllers;
 
+import com.snapppay.tasks.expensetracker.BaseIntegrationTest;
 import com.snapppay.tasks.expensetracker.domain.entities.CategoryEntity;
 import com.snapppay.tasks.expensetracker.domain.entities.ExpenseEntity;
 import com.snapppay.tasks.expensetracker.domain.repositories.CategoryRepository;
@@ -10,15 +11,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -31,9 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * The type Expense controller test.
  */
-@SpringBootTest
-@AutoConfigureMockMvc
-public class ExpenseControllerTest {
+public class ExpenseControllerTest extends BaseIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -54,11 +50,6 @@ public class ExpenseControllerTest {
      */
     @BeforeEach
     public void setup() {
-        // Clear all existing data
-        expenseRepository.deleteAll();
-        categoryRepository.deleteAll();
-        userRepository.deleteAll();
-
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("testuser");
         userEntity.setPassword("{noop}password"); // Password should be encoded in real scenarios
@@ -81,7 +72,7 @@ public class ExpenseControllerTest {
 
         // Set up a test expense
         ExpenseEntity testExpense = new ExpenseEntity();
-        testExpense.setAmount(new BigDecimal("50.00"));
+        testExpense.setAmount(50L);
         testExpense.setDescription("Test Expense");
         testExpense.setLocalDateTime(LocalDateTime.now());
         testExpense.setCategory(testCategory);
@@ -100,7 +91,7 @@ public class ExpenseControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"amount\":50.00,\"description\":\"Test Expense\",\"localDateTime\":\"" + LocalDateTime.now() + "\",\"categoryDto\":{\"id\":" + testCategory.getId() + ",\"name\":\"Test Category\"}}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.amount", is(50.00)))
+                .andExpect(jsonPath("$.amount", is(50)))
                 .andExpect(jsonPath("$.description", is("Test Expense")))
                 .andExpect(jsonPath("$.categoryDto.name", is("Test Category")));
     }
@@ -116,7 +107,7 @@ public class ExpenseControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].amount", is(50.00)))
+                .andExpect(jsonPath("$[0].amount", is(50)))
                 .andExpect(jsonPath("$[0].description", is("Test Expense")))
                 .andExpect(jsonPath("$[0].categoryDto.name", is("Test Category")));
     }
@@ -135,7 +126,7 @@ public class ExpenseControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
-                .andExpect(jsonPath("$[0].amount", is(50.00)))
+                .andExpect(jsonPath("$[0].amount", is(50)))
                 .andExpect(jsonPath("$[0].description", is("Test Expense")))
                 .andExpect(jsonPath("$[0].categoryDto.name", is("Test Category")));
     }

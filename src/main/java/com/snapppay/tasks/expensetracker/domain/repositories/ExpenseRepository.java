@@ -29,4 +29,6 @@ public interface ExpenseRepository extends JpaRepository<ExpenseEntity, Long> {
      * @return the list
      */
     List<ExpenseEntity> findAllByUserIdAndLocalDateTimeBetween(Long userId, LocalDateTime startDate, LocalDateTime endDate);
+
+    List<ExpenseEntity> findAllByUserIdAndCategoryIdAndLocalDateTimeBetween(Long userId, Long categoryId, LocalDateTime startDate, LocalDateTime endDate);
 }

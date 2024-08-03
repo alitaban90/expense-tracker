@@ -1,15 +1,13 @@
 package com.snapppay.tasks.expensetracker.security.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snapppay.tasks.expensetracker.BaseIntegrationTest;
 import com.snapppay.tasks.expensetracker.security.dtos.UserLoginDto;
 import com.snapppay.tasks.expensetracker.security.dtos.UserRegisterDto;
-import com.snapppay.tasks.expensetracker.security.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,9 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * The type Authentication controller test.
  */
-@SpringBootTest
-@AutoConfigureMockMvc
-public class AuthenticationControllerTest {
+public class AuthenticationControllerTest extends BaseIntegrationTest {
 
     @Value(("${security.jwt.expiration-time}"))
     private Long jwtExpiration;
@@ -34,17 +30,12 @@ public class AuthenticationControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Autowired
-    private UserRepository userRepository;
-
     /**
      * Sets .
      */
     @BeforeEach
     @Transactional
     public void setup() {
-        // Clear all existing users
-        userRepository.deleteAll();
     }
 
     /**

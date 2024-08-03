@@ -27,7 +27,7 @@ public class AlertEntity extends AbstractAuditingEntity{
     @NotNull
     @Column(nullable = false)
     @Min(1L)
-    private BigDecimal amount;
+    private Long amount;
 
     private String description;
 

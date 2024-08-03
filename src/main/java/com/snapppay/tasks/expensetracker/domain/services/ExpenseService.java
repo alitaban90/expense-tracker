@@ -17,14 +17,16 @@ import java.util.List;
 public class ExpenseService {
 
     private final ExpenseRepository expenseRepository;
+    private final AlertEvaluationService alertEvaluationService;
 
     /**
      * Instantiates a new Expense service.
      *
      * @param expenseRepository the expense repository
      */
-    public ExpenseService(ExpenseRepository expenseRepository) {
+    public ExpenseService(ExpenseRepository expenseRepository, AlertEvaluationService alertEvaluationService) {
         this.expenseRepository = expenseRepository;
+        this.alertEvaluationService = alertEvaluationService;
     }
 
     /**
@@ -47,6 +49,7 @@ public class ExpenseService {
     @Transactional
     public ExpenseDto addExpense(ExpenseDto expenseDto, UserEntity currentUser) {
         ExpenseEntity expense = new ExpenseEntity(expenseDto, currentUser);
+        alertEvaluationService.evaluateAlertsForExpense(expense);
         return new ExpenseDto(expenseRepository.save(expense));
     }
 

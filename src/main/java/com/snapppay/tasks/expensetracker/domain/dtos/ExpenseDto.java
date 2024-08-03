@@ -19,7 +19,7 @@ public class ExpenseDto extends AbstractAuditingDto {
     private Long id;
 
     @NotNull
-    private BigDecimal amount;
+    private Long amount;
 
     private String description;
 

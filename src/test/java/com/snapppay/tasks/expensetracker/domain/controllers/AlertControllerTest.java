@@ -1,5 +1,6 @@
-package com.snapppay.tasks.expensetracker.controllers;
+package com.snapppay.tasks.expensetracker.domain.controllers;
 
+import com.snapppay.tasks.expensetracker.BaseIntegrationTest;
 import com.snapppay.tasks.expensetracker.domain.dtos.AlertDto;
 import com.snapppay.tasks.expensetracker.domain.dtos.CategoryDto;
 import com.snapppay.tasks.expensetracker.domain.enums.AlertDuration;
@@ -10,16 +11,12 @@ import com.snapppay.tasks.expensetracker.security.repositories.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -28,9 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-public class AlertControllerTest {
+public class AlertControllerTest extends BaseIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -49,12 +44,6 @@ public class AlertControllerTest {
     @BeforeEach
     @Transactional
     public void setup() {
-        // Clear existing alerts and categories
-        alertService.deleteAllAlerts();
-        categoryService.deleteAllCategories();
-        // Clear all existing users and add a test user
-        userRepository.deleteAll();
-
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername("testuser");
         userEntity.setPassword("{noop}password"); // Password should be encoded in real scenarios
@@ -77,13 +66,13 @@ public class AlertControllerTest {
 
         // Add some test alerts
         AlertDto alert1 = new AlertDto();
-        alert1.setAmount(new BigDecimal("50.00"));
+        alert1.setAmount(50L);
         alert1.setDescription("Alert for Test 1");
         alert1.setCategory(testCategory);
         alert1.setDuration(AlertDuration.MONTHLY);
 
         AlertDto alert2 = new AlertDto();
-        alert2.setAmount(new BigDecimal("100.00"));
+        alert2.setAmount(100L);
         alert2.setDescription("Alert for Test 2");
         alert2.setCategory(testCategory);
         alert2.setDuration(AlertDuration.WEEKLY);
@@ -103,7 +92,7 @@ public class AlertControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(alertJson))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.amount", is(200.00)))
+                .andExpect(jsonPath("$.amount", is(200)))
                 .andExpect(jsonPath("$.description", is("New Alert")))
                 .andExpect(jsonPath("$.category.name", is("Test Category")))
                 .andExpect(jsonPath("$.duration", is("DAILY")));
@@ -115,11 +104,11 @@ public class AlertControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].amount", is(50.00)))
+                .andExpect(jsonPath("$[0].amount", is(50)))
                 .andExpect(jsonPath("$[0].description", is("Alert for Test 1")))
                 .andExpect(jsonPath("$[0].category.name", is("Test Category")))
                 .andExpect(jsonPath("$[0].duration", is("MONTHLY")))
-                .andExpect(jsonPath("$[1].amount", is(100.00)))
+                .andExpect(jsonPath("$[1].amount", is(100)))
                 .andExpect(jsonPath("$[1].description", is("Alert for Test 2")))
                 .andExpect(jsonPath("$[1].category.name", is("Test Category")))
                 .andExpect(jsonPath("$[1].duration", is("WEEKLY")));
