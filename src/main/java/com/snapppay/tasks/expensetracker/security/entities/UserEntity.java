@@ -1,9 +1,7 @@
 package com.snapppay.tasks.expensetracker.security.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,6 +10,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The type User entity.
+ */
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @Data
@@ -21,8 +22,12 @@ public class UserEntity extends AbstractAuditingEntity implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Column(nullable = false, unique = true)
     private String username;
 
+    @NotBlank
+    @Column(nullable = false)
     private String password;
 
     private String email;

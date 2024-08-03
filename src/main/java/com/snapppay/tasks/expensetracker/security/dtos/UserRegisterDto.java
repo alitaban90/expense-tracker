@@ -1,9 +1,11 @@
 package com.snapppay.tasks.expensetracker.security.dtos;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+/**
+ * The type User register dto.
+ */
 @Data
 public class UserRegisterDto {
 

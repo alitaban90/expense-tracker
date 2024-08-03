@@ -10,6 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * The type Authentication service.
+ */
 @Service
 public class AuthenticationService {
 
@@ -17,12 +20,25 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * Instantiates a new Authentication service.
+     *
+     * @param userRepository        the user repository
+     * @param passwordEncoder       the password encoder
+     * @param authenticationManager the authentication manager
+     */
     public AuthenticationService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
     }
 
+    /**
+     * Register user dto.
+     *
+     * @param dto the dto
+     * @return the user dto
+     */
     public UserDto register(UserRegisterDto dto){
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(dto.getUsername());
@@ -35,6 +51,12 @@ public class AuthenticationService {
         return new UserDto(userEntity);
     }
 
+    /**
+     * Authenticate user entity.
+     *
+     * @param dto the dto
+     * @return the user entity
+     */
     public UserEntity authenticate(UserLoginDto dto){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword()));
         return userRepository.findByUsername(dto.getUsername()).orElseThrow();

@@ -3,6 +3,9 @@ package com.snapppay.tasks.expensetracker.security.dtos;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+/**
+ * The type User login dto.
+ */
 @Data
 public class UserLoginDto {
 

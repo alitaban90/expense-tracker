@@ -17,6 +17,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+/**
+ * The type User account controller test.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class UserAccountControllerTest {
@@ -27,6 +30,9 @@ public class UserAccountControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * Sets .
+     */
     @BeforeEach
     @Transactional
     public void setup() {
@@ -48,6 +54,11 @@ public class UserAccountControllerTest {
         SecurityContextHolder.setContext(securityContext);
     }
 
+    /**
+     * Test get account info.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testGetAccountInfo() throws Exception {
         mockMvc.perform(get("/api/account"))

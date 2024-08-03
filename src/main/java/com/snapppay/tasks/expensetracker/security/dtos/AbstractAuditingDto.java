@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
+/**
+ * The type Abstract auditing dto.
+ */
 @Data
 public class AbstractAuditingDto {
 

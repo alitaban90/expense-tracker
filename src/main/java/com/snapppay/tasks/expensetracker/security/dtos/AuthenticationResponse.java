@@ -1,8 +1,10 @@
 package com.snapppay.tasks.expensetracker.security.dtos;
 
-import com.snapppay.tasks.expensetracker.security.entities.UserEntity;
 import lombok.Data;
 
+/**
+ * The type Authentication response.
+ */
 @Data
 public class AuthenticationResponse {
 

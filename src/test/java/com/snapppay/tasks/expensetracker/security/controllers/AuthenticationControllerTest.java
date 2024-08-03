@@ -3,6 +3,8 @@ package com.snapppay.tasks.expensetracker.security.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.snapppay.tasks.expensetracker.security.dtos.UserLoginDto;
 import com.snapppay.tasks.expensetracker.security.dtos.UserRegisterDto;
+import com.snapppay.tasks.expensetracker.security.repositories.UserRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,11 +12,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
+/**
+ * The type Authentication controller test.
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 public class AuthenticationControllerTest {
@@ -28,6 +34,24 @@ public class AuthenticationControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    /**
+     * Sets .
+     */
+    @BeforeEach
+    @Transactional
+    public void setup() {
+        // Clear all existing users
+        userRepository.deleteAll();
+    }
+
+    /**
+     * Test register.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testRegister() throws Exception {
         UserRegisterDto userRegisterDto = new UserRegisterDto();
@@ -42,6 +66,11 @@ public class AuthenticationControllerTest {
                 .andExpect(jsonPath("$.username").value("testuser"));
     }
 
+    /**
+     * Test authenticate.
+     *
+     * @throws Exception the exception
+     */
     @Test
     public void testAuthenticate() throws Exception {
         testRegister();

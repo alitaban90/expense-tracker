@@ -17,8 +17,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDateTime;
 
 /**
- * Base abstract class for entities which will hold definitions for created, last modified by and created,
- * last modified by date.
+ * The type Abstract auditing entity.
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

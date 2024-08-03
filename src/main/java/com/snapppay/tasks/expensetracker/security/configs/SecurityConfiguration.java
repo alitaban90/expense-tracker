@@ -15,6 +15,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.List;
 
+/**
+ * The type Security configuration.
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
@@ -23,11 +26,24 @@ public class SecurityConfiguration {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
 
+    /**
+     * Instantiates a new Security configuration.
+     *
+     * @param authenticationProvider  the authentication provider
+     * @param jwtAuthenticationFilter the jwt authentication filter
+     */
     public SecurityConfiguration(AuthenticationProvider authenticationProvider, JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.authenticationProvider = authenticationProvider;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
+    /**
+     * Security filter chain security filter chain.
+     *
+     * @param http the http
+     * @return the security filter chain
+     * @throws Exception the exception
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
@@ -45,18 +61,23 @@ public class SecurityConfiguration {
         return http.build();
     }
 
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//
-//        configuration.setAllowedOrigins(List.of("http://localhost:8005"));
-//        configuration.setAllowedMethods(List.of("GET","POST"));
-//        configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
-//
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//
-//        source.registerCorsConfiguration("/**",configuration);
-//
-//        return source;
-//    }
+    /**
+     * Cors configuration source cors configuration source.
+     *
+     * @return the cors configuration source
+     */
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(List.of("http://localhost:8005"));
+        configuration.setAllowedMethods(List.of("GET","POST"));
+        configuration.setAllowedHeaders(List.of("Authorization","Content-Type"));
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**",configuration);
+
+        return source;
+    }
 }

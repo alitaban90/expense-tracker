@@ -13,11 +13,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 
+/**
+ * The type My exception handler.
+ */
 @RestControllerAdvice
 public class MyExceptionHandler {
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
+    /**
+     * Handle security exception problem detail.
+     *
+     * @param exception the exception
+     * @return the problem detail
+     */
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleSecurityException(Exception exception) {
         ProblemDetail errorDetail = null;
