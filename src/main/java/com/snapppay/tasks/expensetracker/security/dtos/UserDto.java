@@ -2,9 +2,11 @@ package com.snapppay.tasks.expensetracker.security.dtos;
 
 import com.snapppay.tasks.expensetracker.security.entities.UserEntity;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class UserDto {
+public class UserDto extends AbstractAuditingDto {
 
     private Long id;
     private String username;
@@ -23,5 +25,9 @@ public class UserDto {
         this.lastName = userEntity.getLastName();
         this.email = userEntity.getEmail();
         this.mobile = userEntity.getMobile();
+        this.setCreatedBy(userEntity.getCreatedBy());
+        this.setCreatedDate(userEntity.getCreatedDate());
+        this.setLastModifiedBy(userEntity.getLastModifiedBy());
+        this.setLastModifiedDate(userEntity.getLastModifiedDate());
     }
 }
