@@ -1,7 +1,3 @@
-Here's the updated README with Docker support for building and running the project:
-
----
-
 # Expense Tracker Project
 
 ## Overview
