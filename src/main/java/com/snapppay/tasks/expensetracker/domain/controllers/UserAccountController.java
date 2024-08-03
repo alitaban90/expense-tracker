@@ -1,15 +1,13 @@
 package com.snapppay.tasks.expensetracker.domain.controllers;
 
 import com.snapppay.tasks.expensetracker.security.dtos.UserDto;
-import com.snapppay.tasks.expensetracker.security.entities.UserEntity;
+import com.snapppay.tasks.expensetracker.security.utils.SecurityUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,10 +36,6 @@ public class UserAccountController {
     })
     @GetMapping
     public ResponseEntity<UserDto> getAccountInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        UserEntity currentUser = (UserEntity) authentication.getPrincipal();
-
-        return ResponseEntity.ok(new UserDto(currentUser));
+        return ResponseEntity.ok(new UserDto(SecurityUtils.getCurrentUser()));
     }
 }

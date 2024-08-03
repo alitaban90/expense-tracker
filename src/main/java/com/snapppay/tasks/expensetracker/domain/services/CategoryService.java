@@ -45,4 +45,9 @@ public class CategoryService {
     public List<CategoryDto> getAllCategories(){
         return categoryRepository.findAll().stream().map(CategoryDto::new).toList();
     }
+
+    @Transactional
+    public void deleteAllCategories() {
+        categoryRepository.deleteAll();
+    }
 }

@@ -49,4 +49,8 @@ public class AlertService {
     }
 
 
+    @Transactional
+    public void deleteAllAlerts() {
+        alertRepository.deleteAll();
+    }
 }

@@ -29,6 +29,9 @@ public class ExpenseDto extends AbstractAuditingDto {
     @NotNull
     private CategoryDto categoryDto;
 
+    public ExpenseDto() {
+    }
+
     public ExpenseDto(ExpenseEntity expenseEntity) {
         this.id = expenseEntity.getId();
         this.amount = expenseEntity.getAmount();
