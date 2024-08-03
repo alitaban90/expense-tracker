@@ -1,4 +1,4 @@
-package com.snapppay.tasks.expensetracker.controllers;
+package com.snapppay.tasks.expensetracker.domain.controllers;
 
 import com.snapppay.tasks.expensetracker.security.dtos.UserDto;
 import com.snapppay.tasks.expensetracker.security.entities.UserEntity;

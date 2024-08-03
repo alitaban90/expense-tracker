@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * The type Authentication service.
@@ -39,6 +40,7 @@ public class AuthenticationService {
      * @param dto the dto
      * @return the user dto
      */
+    @Transactional
     public UserDto register(UserRegisterDto dto){
         UserEntity userEntity = new UserEntity();
         userEntity.setUsername(dto.getUsername());
