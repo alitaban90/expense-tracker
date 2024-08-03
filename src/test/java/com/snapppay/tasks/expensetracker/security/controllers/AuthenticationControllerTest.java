@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class AuthenticationControllerIntegrationTest {
+public class AuthenticationControllerTest {
 
     @Value(("${security.jwt.expiration-time}"))
     private Long jwtExpiration;
