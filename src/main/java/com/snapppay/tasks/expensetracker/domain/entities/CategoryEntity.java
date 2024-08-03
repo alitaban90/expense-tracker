@@ -1,5 +1,6 @@
 package com.snapppay.tasks.expensetracker.domain.entities;
 
+import com.snapppay.tasks.expensetracker.domain.dtos.CategoryDto;
 import com.snapppay.tasks.expensetracker.security.entities.AbstractAuditingEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -24,4 +25,13 @@ public class CategoryEntity extends AbstractAuditingEntity{
     private String name;
 
     private String description;
+
+    public CategoryEntity() {
+    }
+
+    public CategoryEntity(CategoryDto categoryDto) {
+        this.id = categoryDto.getId();
+        this.name = categoryDto.getName();
+        this.description = categoryDto.getDescription();
+    }
 }

@@ -1,5 +1,6 @@
 package com.snapppay.tasks.expensetracker.domain.entities;
 
+import com.snapppay.tasks.expensetracker.domain.dtos.ExpenseDto;
 import com.snapppay.tasks.expensetracker.security.entities.AbstractAuditingEntity;
 import com.snapppay.tasks.expensetracker.security.entities.UserEntity;
 import jakarta.persistence.*;
@@ -43,4 +44,15 @@ public class ExpenseEntity extends AbstractAuditingEntity{
     @JoinColumn(name = "category_id", nullable = false)
     @NotNull
     private CategoryEntity category;
+
+    public ExpenseEntity() {
+    }
+
+    public ExpenseEntity(ExpenseDto expenseDto, UserEntity user) {
+        this.amount=expenseDto.getAmount();
+        this.description = expenseDto.getDescription();
+        this.localDateTime = expenseDto.getLocalDateTime();
+        this.user = user;
+        this.category = new CategoryEntity(expenseDto.getCategoryDto());
+    }
 }
