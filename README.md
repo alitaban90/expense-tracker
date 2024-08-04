@@ -151,10 +151,6 @@ mvn test
 
 Contributions are welcome! Please fork the repository, make your changes, and submit a pull request.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ---
 
 Replace placeholder URLs and paths with the actual ones relevant to your project. If there are additional configurations or Docker-related details specific to your setup, you can include those as well!
