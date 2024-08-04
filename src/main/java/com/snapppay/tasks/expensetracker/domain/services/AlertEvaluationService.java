@@ -36,9 +36,23 @@ public class AlertEvaluationService {
     }
 
     /**
-     * Evaluate alerts for expense.
+     * Evaluates alerts based on the provided expense.
      *
-     * @param expense the expense
+     * This method checks all alerts associated with the user of the given expense and determines if any alert 
+     * conditions are met. If an alert's condition is met, a notification is sent to the user.
+     *
+     * The evaluation process involves:
+     * 1. Retrieving all alerts associated with the user of the provided expense.
+     * 2. For each alert:
+     *    - If the alert has no specific category, retrieves all expenses for the user within the time range defined by the alert's duration.
+     *    - If the alert has a specific category, retrieves all expenses for that category within the time range defined by the alert's duration.
+     * 3. Calculates the total amount of expenses within the time range and adds the amount of the provided expense.
+     * 4. Compares the total amount to the threshold defined by the alert.
+     * 5. If the total amount exceeds the alert's threshold, sends a notification to the user.
+     *
+     * @param expense The expense entity to evaluate against existing alerts. Must not be {@code null}.
+     *
+     * @throws NullPointerException if the provided expense is {@code null} or if any of its required fields are {@code null}.
      */
     public void evaluateAlertsForExpense(ExpenseEntity expense) {
         List<AlertEntity> alerts = alertRepository.findAllByUserId(expense.getUser().getId());
@@ -52,7 +66,7 @@ public class AlertEvaluationService {
                 expenseEntities = expenseRepository.findAllByUserIdAndCategoryIdAndLocalDateTimeBetween(expense.getUser().getId(), alert.getCategory().getId(),
                         startDate, LocalDateTime.now());
             }
-            if(expenseEntities.stream().mapToLong(ExpenseEntity::getAmount).sum() > alert.getAmount()){
+            if(expenseEntities.stream().mapToLong(ExpenseEntity::getAmount).sum() + expense.getAmount() > alert.getAmount()){
                 notificationService.sendNotification(expense.getUser(), alert.getDescription());
             }
         }
