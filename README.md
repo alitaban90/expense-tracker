@@ -21,7 +21,7 @@ The Expense Tracker project is a Java Spring Boot application that allows users 
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/expense-tracker.git
+git clone https://github.com/alitaban90/expense-tracker.git
 cd expense-tracker
 ```
 
