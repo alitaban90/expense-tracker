@@ -4,6 +4,19 @@
 
 The Expense Tracker project is a Java Spring Boot application that allows users to manage and track their expenses. It includes functionalities for adding and categorizing expenses, generating monthly reports, and setting custom alerts for spending patterns. The project also integrates Swagger for API documentation and supports Docker for containerization.
 
+## Minimum Requirements
+
+To build and run this project, ensure you have the following installed:
+
+### Java
+- **Java Development Kit (JDK)**: 17 or later
+
+### Maven
+- **Apache Maven**: 3.6.3 or later
+
+### Docker (Optional, for Docker-based build)
+- **Docker**: 20.10.0 or later
+
 ## Features
 
 - **User Authentication**: Register and authenticate users.
@@ -12,11 +25,6 @@ The Expense Tracker project is a Java Spring Boot application that allows users 
 - **Reports**: Generate monthly expense reports.
 
 ## Getting Started
-
-### Prerequisites
-
-- **Docker**: Install Docker to build and run the application in a containerized environment.
-- **Docker Compose**: Install Docker Compose to manage multi-container Docker applications.
 
 ### Clone the Repository
 
@@ -40,16 +48,6 @@ cd expense-tracker
    ```
 
    This command maps port 8080 of the container to port 8080 of your host machine, allowing you to access the application at `http://localhost:8080`.
-
-### Docker Compose (Optional)
-
-If your project uses multiple services, you might have a `docker-compose.yml` file. To build and start all services:
-
-```bash
-docker-compose up --build
-```
-
-This command will build the images and start the containers as defined in the `docker-compose.yml` file.
 
 ### Configuration
 
