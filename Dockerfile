@@ -1,5 +1,8 @@
-# Use an official Maven image to build the application
-FROM maven:3.8.6-openjdk-21 AS build
+# Use an official OpenJDK image
+FROM openjdk:21-jdk-slim AS build
+
+# Install Maven
+RUN apt-get update && apt-get install -y maven
 
 # Set the working directory
 WORKDIR /app
@@ -11,6 +14,9 @@ COPY src ./src
 # Run Maven to build the application
 RUN mvn clean package
 
+# List files in the target directory (for debugging purposes)
+RUN ls -l target
+
 # Use an official OpenJDK image to run the application
 FROM openjdk:21-jdk-slim
 
@@ -18,8 +24,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY target/expense-tracker-0.0.1-SNAPSHOT.jar /app/expense-tracker.jar
+COPY --from=build /app/target/expense-tracker-0.0.1-SNAPSHOT.jar /app/expense-tracker.jar
 
 # Run the application
 ENTRYPOINT ["java", "-jar", "/app/expense-tracker.jar"]
-
